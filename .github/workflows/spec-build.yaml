@@ -18,6 +18,14 @@ on:
         default: stats.json
         required: false
         type: string
+    outputs:
+        spec-artifact-id:
+            description: The ID of the bundled specification Github Action artifact
+            value: ${{ jobs.bundle.outputs.spec-artifact-id }}
+        stats-artifact-id:
+            description: The ID of the stats Github Action artifact
+            value: ${{ jobs.bundle.outputs.stats-artifact-id }}
+
 
 jobs:
   bundle:
