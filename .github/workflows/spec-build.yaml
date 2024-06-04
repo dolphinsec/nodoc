@@ -1,126 +1,123 @@
 ---
-    name: Bundle API and build Postman collection
-    on:
-      workflow_call:
-        inputs:
-          build-dir:
-            description: The directory to use for build artifacts
-            default: build
-            required: false
-            type: string
-          bundled-spec-filename:
-            description: The filename of the bundled API specification
-            default: openapi.yaml
-            required: false
-            type: string
-          stats-filename:
-            description: The filename of the API statistics file
-            default: stats.json
-            required: false
-            type: string
-          commit:
-            description: Whether to recommit the postman collections
-            default: false
-            required: false
-            type: boolean
-          commit-user:
-            description: The username to commit the postman collection with
-            default: github-actions[bot]
-            required: false
-            type: string
-          commit-email:
-            description: The email to commit the postman collection with
-            default: 41898282+github-actions[bot]@users.noreply.github.com
-            required: false
-            type: string
-          collection-file:
-            description: The path to the postman collection definition
-            default: postman/collections/collection.json
-            required: false
-            type: string
-          collection-name:
-            description: The name for the collection in published artifacts
-            default: collection.json
-            required: false
-            type: string
+name: Bundle API and build Postman collection
+on:
+  workflow_call:
+    inputs:
+      build-dir:
+        description: The directory to use for build artifacts
+        default: build
+        required: false
+        type: string
+      bundled-spec-filename:
+        description: The filename of the bundled API specification
+        default: openapi.yaml
+        required: false
+        type: string
+      stats-filename:
+        description: The filename of the API statistics file
+        default: stats.json
+        required: false
+        type: string
+      commit:
+        description: Whether to recommit the postman collections
+        default: false
+        required: false
+        type: boolean
+      commit-user:
+        description: The username to commit the postman collection with
+        default: github-actions[bot]
+        required: false
+        type: string
+      commit-email:
+        description: The email to commit the postman collection with
+        default: 41898282+github-actions[bot]@users.noreply.github.com
+        required: false
+        type: string
+      collection-file:
+        description: The path to the postman collection definition
+        default: postman/collections/collection.json
+        required: false
+        type: string
+      collection-name:
+        description: The name for the collection in published artifacts
+        default: collection.json
+        required: false
+        type: string
 
-    jobs:
-      bundle:
-        runs-on: ubuntu-latest
-        outputs:
-            spec-artifact-id: ${{ steps.upload-spec.outputs.artifact-id }}
-            stats-artifact-id: ${{ steps.upload-stats.outputs.artifact-id }}
-            collection-artifact-id: ${{ steps.upload-collection.outputs.artifact-id }}
-        permissions:
-          contents: write
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v4
-            with:
-              fetch-depth: 0
-    
-          - name: Install GitVersion
-            uses: gittools/actions/gitversion/setup@v1.1.1
-            with:
-              versionSpec: '5.x'
-    
-          - name: Determine Version
-            id: version
-            uses: gittools/actions/gitversion/execute@v1.1.1
-    
-          - name: Setup node
-            uses: actions/setup-node@v4
-            with:
-              node-version: 20.x
-    
-          - name: Install Redocly CLI
-            run: npm install -g @redocly/cli@latest
-    
-          - name: Install OpenAPI-to-Postman
-            run: npm install -g openapi-to-postmanv2@latest
-    
-          - name: Bundle specification
-            run: |
-              redocly bundle -o ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    outputs:
+        spec-artifact-id: ${{ steps.upload-spec.outputs.artifact-id }}
+        stats-artifact-id: ${{ steps.upload-stats.outputs.artifact-id }}
+        collection-artifact-id: ${{ steps.upload-collection.outputs.artifact-id }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-          - name: Upload specification
-            id: upload-spec
-            uses: actions/upload-artifact@v4
-            with:
-                name: ${{inputs.bundled-spec-filename}}
-                path: ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
-                if-no-files-found: error
-    
-          - name: Generate stats
-            run: |
-              redocly stats --format=json > ${{inputs.build-dir}}/${{inputs.stats-filename}}
-    
-          - name: Upload stats
-            id: upload-stats
-            uses: actions/upload-artifact@v4
-            with:
-                name: ${{inputs.stats-filename}}
-                path: ${{inputs.build-dir}}/${{inputs.stats-filename}}
-                if-no-files-found: error
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v1.1.1
+        with:
+          versionSpec: '5.x'
 
-          - name: Build postman collection
-            run: >-
-              openapi2postmanv2 -c postman_to_openapi.json
-              -s ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}} -o ${{ inputs.collection-file }}
+      - name: Determine Version
+        id: version
+        uses: gittools/actions/gitversion/execute@v1.1.1
 
-          - name: Upload collection
-            id: upload-collection
-            uses: actions/upload-artifact@v4
-            with:
-                name: ${{inputs.collection-name}}
-                path: ${{inputs.collection-file}}
-                if-no-files-found: error
-    
-          - name: Commit collection
-            if: inputs.commit
-            run: |
-              git config user.name '${{ inputs.commit-user }}'
-              git config user.email '${{ inputs.commit-email }}'
-              git add ${{ inputs.collection-file }}
-              git commit -m "automated collection build"
-              git push
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli@latest
+
+      - name: Bundle specification
+        run: |
+          redocly bundle -o ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
+
+      - name: Upload specification
+        id: upload-spec
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{inputs.bundled-spec-filename}}
+            path: ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
+            if-no-files-found: error
+
+      - name: Generate stats
+        run: |
+          redocly stats --format=json > ${{inputs.build-dir}}/${{inputs.stats-filename}}
+
+      - name: Upload stats
+        id: upload-stats
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{inputs.stats-filename}}
+            path: ${{inputs.build-dir}}/${{inputs.stats-filename}}
+            if-no-files-found: error
+
+      - name: Build postman collection
+        run: >-
+          openapi2postmanv2 -c postman_to_openapi.json
+          -s ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}} -o ${{ inputs.collection-file }}
+
+      - name: Upload collection
+        id: upload-collection
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{inputs.collection-name}}
+            path: ${{inputs.collection-file}}
+            if-no-files-found: error
+
+      - name: Commit collection
+        if: inputs.commit
+        run: |
+          git config user.name '${{ inputs.commit-user }}'
+          git config user.email '${{ inputs.commit-email }}'
+          git add ${{ inputs.collection-file }}
+          git commit -m "automated collection build"
+          git push

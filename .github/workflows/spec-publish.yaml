@@ -1,0 +1,88 @@
+---
+name: Publish API to GitHub and Postman
+on:
+  workflow_call:
+    inputs:
+      spec-artifact-id:
+        description: The artifact ID of the bundled API specification
+        required: true
+        type: number
+      stats-artifact-id:
+        description: The artifact ID of the API stats file
+        required: true
+        type: number
+      build-run-id:
+        description: The ID of the build workflow run
+        required: true
+        type: number
+      postman-collection-path:
+        description: The filepath to the Postman collection defintion
+        required: false
+        default: ./postman/collections/collection.json
+        type: string
+      postman-api-id:
+        description: The ID of the Postman API
+        required: true
+        type: string
+      postman-api-version:
+        description: The version to publish for the Postman API
+        required: true
+        type: string
+      api-root-path:
+        description: The root path of the API specification
+        required: true
+        type: string
+      release-tag:
+        description: The tag for the Github release
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  release-to-postman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Publish to Postman
+        run: |
+          postman api publish ${{ inputs.postman-api-id }} --name ${{ inputs.postman-api-version }} --collections ${{ inputs.postman-collection-path }} --api-definition ${{ inputs.api-root-path }}
+        
+  release-to-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download spec
+        id: download-spec
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          name: ${{ inputs.spec-artifact-id }}
+
+      - name: Download stats
+        id: download-stats
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GH_PAT }}
+          name: ${{ inputs.stats-artifact-id }}
+
+      - name: Create GitHub release
+        run: gh release create --verify-tag --notes-from-tag ${{ inputs.release-tag }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Release spec
+        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-spec.outputs.download-path }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Release stats
+        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-stats.outputs.download-path }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Release collection
+        run: gh release upload ${{ inputs.release-tag }} ${{ inputs.postman-collection-path }}
+        env:
+          GH_TOKEN: ${{ github.token }}
