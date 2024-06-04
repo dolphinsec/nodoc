@@ -14,7 +14,7 @@ on:
       postman-collection-path:
         description: The filepath to the Postman collection defintion
         required: false
-        default: ./postman/collections/collection.json
+        default: postman/collections/collection.json
         type: string
       postman-api-version:
         description: The version to publish for the Postman API
