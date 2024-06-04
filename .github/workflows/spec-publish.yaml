@@ -37,7 +37,7 @@ on:
         required: true
         type: string
     secrets:
-      postman_api_key:
+      postman-api-key:
         description: The API key for publishing to Postman
         required: true
 
