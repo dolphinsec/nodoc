@@ -11,10 +11,6 @@ on:
         description: The artifact ID of the API stats file
         required: true
         type: string
-      build-run-id:
-        description: The ID of the build workflow run
-        required: true
-        type: string
       postman-collection-path:
         description: The filepath to the Postman collection defintion
         required: false
@@ -68,15 +64,12 @@ jobs:
         id: download-spec
         uses: actions/download-artifact@v4
         with:
-          github-token: ${{ secrets.GH_PAT }}
           name: ${{ inputs.spec-artifact-id }}
-          run-id: ${{ inputs.build-run-id }}
 
       - name: Download stats
         id: download-stats
         uses: actions/download-artifact@v4
         with:
-          github-token: ${{ secrets.GH_PAT }}
           name: ${{ inputs.stats-artifact-id }}
 
       - name: Create GitHub release
