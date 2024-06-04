@@ -40,9 +40,9 @@ jobs:
     
       - name: Compare collection files
         run: >-
-          diff -q
-          ${{github.workspace}}/${{inputs.temp-collection-filename}}
-          ${{inputs.postman-collection-path}}
+          diff
+          <(jq --sort-keys 'del(.info._postman_id)' ${{github.workspace}}/${{inputs.temp-collection-filename}})
+          <(jq --sort-keys 'del(.info._postman_id)' ${{inputs.postman-collection-path}})
 
       - name: Install Redocly CLI
         run: npm install -g @redocly/cli@latest
