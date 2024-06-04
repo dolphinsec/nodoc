@@ -49,9 +49,11 @@ jobs:
       - name: Publish to Postman
         run: |
           postman api publish ${{ inputs.postman-api-id }} --name ${{ inputs.postman-api-version }} --collections ${{ inputs.postman-collection-path }} --api-definition ${{ inputs.api-root-path }}
-        
+
   release-to-github:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Download spec
         id: download-spec
