@@ -19,22 +19,22 @@ on:
         required: false
         type: string
     outputs:
-        spec-artifact-id:
-            description: The ID of the bundled specification GitHub Action artifact
-            value: ${{ jobs.bundle.outputs.spec-artifact-id }}
-        stats-artifact-id:
-            description: The ID of the stats GitHub Action artifact
-            value: ${{ jobs.bundle.outputs.stats-artifact-id }}
-        run-id:
-            description: The ID of the GitHub build action run
-            value: ${{ github.run_id }}
+      spec-artifact-name:
+        description: The name of the bundled specification GitHub Action artifact
+        value: ${{ jobs.bundle.outputs.spec-artifact-name }}
+      stats-artifact-name:
+        description: The name of the stats GitHub Action artifact
+        value: ${{ inputs.stats-filename }}
+      run-id:
+        description: The ID of the GitHub build action run
+        value: ${{ github.run_id }}
 
 jobs:
   bundle:
     runs-on: ubuntu-latest
     outputs:
-        spec-artifact-id: ${{ steps.upload-spec.outputs.artifact-id }}
-        stats-artifact-id: ${{ steps.upload-stats.outputs.artifact-id }}
+      spec-artifact-name: ${{ inputs.bundled-spec-filename }}
+      stats-artifact-id: ${{ steps.upload-stats.outputs.artifact-id }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,9 +57,9 @@ jobs:
         id: upload-spec
         uses: actions/upload-artifact@v4
         with:
-            name: ${{inputs.bundled-spec-filename}}
-            path: ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
-            if-no-files-found: error
+          name: ${{inputs.bundled-spec-filename}}
+          path: ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}}
+          if-no-files-found: error
 
       - name: Generate stats
         run: |
@@ -69,6 +69,6 @@ jobs:
         id: upload-stats
         uses: actions/upload-artifact@v4
         with:
-            name: ${{inputs.stats-filename}}
-            path: ${{inputs.build-dir}}/${{inputs.stats-filename}}
-            if-no-files-found: error
+          name: ${{inputs.stats-filename}}
+          path: ${{inputs.build-dir}}/${{inputs.stats-filename}}
+          if-no-files-found: error
