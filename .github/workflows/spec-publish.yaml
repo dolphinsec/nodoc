@@ -3,12 +3,12 @@ name: Publish API to GitHub and Postman
 on:
   workflow_call:
     inputs:
-      spec-artifact-id:
-        description: The artifact ID of the bundled API specification
+      spec-artifact-name:
+        description: The artifact name of the bundled API specification
         required: true
         type: string
-      stats-artifact-id:
-        description: The artifact ID of the API stats file
+      stats-artifact-name:
+        description: The artifact name of the API stats file
         required: true
         type: string
       postman-collection-path:
@@ -74,13 +74,13 @@ jobs:
         id: download-spec
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.spec-artifact-id }}
+          name: ${{ inputs.spec-artifact-name }}
 
       - name: Download stats
         id: download-stats
         uses: actions/download-artifact@v4
         with:
-          name: ${{ inputs.stats-artifact-id }}
+          name: ${{ inputs.stats-artifact-name }}
 
       - name: Create GitHub release
         run: gh release create --verify-tag --notes-from-tag ${{ inputs.release-tag }}
@@ -88,12 +88,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       - name: Release spec
-        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-spec.outputs.download-path }}/${{inputs.spec-artifact-id }}
+        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-spec.outputs.download-path }}/${{inputs.spec-artifact-name }}
         env:
           GH_TOKEN: ${{ github.token }}
 
       - name: Release stats
-        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-stats.outputs.download-path }}/${{inputs.stats-artifact-id }}
+        run: gh release upload ${{ inputs.release-tag }} ${{ steps.download-stats.outputs.download-path }}/${{inputs.stats-artifact-name }}
         env:
           GH_TOKEN: ${{ github.token }}
 

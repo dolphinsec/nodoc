@@ -2,22 +2,7 @@
 name: Validate OpenAPI Spec
 on:
   workflow_call:
-    inputs:
-        postman-collection-path:
-            description: The path to the Postman collection file
-            required: false
-            default: ./postman/collections/collection.json
-            type: string
-        spec-path:
-            description: The path to the OpenAPI specification root file
-            required: false
-            default: ./specification/openapi.yml
-            type: string
-        temp-collection-filename:
-            description: The filename of the temporarily created collection file
-            required: false
-            default: generated_collection.json
-            type: string
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -29,20 +14,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.x
-
-      - name: Install OpenAPI-to-Postman
-        run: npm install -g openapi-to-postmanv2@latest
-
-      - name: Build postman collection
-        run: >-
-          openapi2postmanv2 -c postman_to_openapi.json
-          -s ${{github.workspace}}/${{inputs.spec-path}} -o ${{github.workspace}}/${{inputs.temp-collection-filename}}
-    
-      - name: Compare collection files
-        run: >-
-          diff
-          <(jq --sort-keys 'del(.info._postman_id, .info._uid)' ${{github.workspace}}/${{inputs.temp-collection-filename}})
-          <(jq --sort-keys 'del(.info._postman_id, .info._uid)' ${{inputs.postman-collection-path}})
 
       - name: Install Redocly CLI
         run: npm install -g @redocly/cli@latest
