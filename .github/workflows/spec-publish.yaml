@@ -20,10 +20,6 @@ on:
         required: false
         default: ./postman/collections/collection.json
         type: string
-      postman-api-id:
-        description: The ID of the Postman API
-        required: true
-        type: string
       postman-api-version:
         description: The version to publish for the Postman API
         required: true
@@ -34,6 +30,10 @@ on:
         type: string
       release-tag:
         description: The tag for the Github release
+        required: true
+        type: string
+      postman-api-id:
+        description: The ID of the Postman API
         required: true
         type: string
 

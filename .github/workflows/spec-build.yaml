@@ -20,11 +20,14 @@ on:
         type: string
     outputs:
         spec-artifact-id:
-            description: The ID of the bundled specification Github Action artifact
+            description: The ID of the bundled specification GitHub Action artifact
             value: ${{ jobs.bundle.outputs.spec-artifact-id }}
         stats-artifact-id:
-            description: The ID of the stats Github Action artifact
+            description: The ID of the stats GitHub Action artifact
             value: ${{ jobs.bundle.outputs.stats-artifact-id }}
+        run-id:
+            description: The ID of the GitHub build action run
+            value: ${{ github.run_id }}
 
 
 jobs:
