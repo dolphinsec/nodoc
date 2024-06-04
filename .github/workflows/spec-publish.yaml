@@ -56,7 +56,7 @@ jobs:
         run: |
           postman login --with-api-key $POSTMAN_API_KEY
         env:
-          POSTMAN_API_KEY: ${{ secrets.postman_api_key }}
+          POSTMAN_API_KEY: ${{ secrets.postman-api-key }}
 
       - name: Publish to Postman
         run: |
