@@ -1,5 +1,5 @@
 ---
-name: Bundle API and build Postman collection
+name: Bundle API
 on:
   workflow_call:
     inputs:
@@ -18,31 +18,6 @@ on:
         default: stats.json
         required: false
         type: string
-      commit:
-        description: Whether to recommit the postman collections
-        default: false
-        required: false
-        type: boolean
-      commit-user:
-        description: The username to commit the postman collection with
-        default: github-actions[bot]
-        required: false
-        type: string
-      commit-email:
-        description: The email to commit the postman collection with
-        default: 41898282+github-actions[bot]@users.noreply.github.com
-        required: false
-        type: string
-      collection-file:
-        description: The path to the postman collection definition
-        default: postman/collections/collection.json
-        required: false
-        type: string
-      collection-name:
-        description: The name for the collection in published artifacts
-        default: collection.json
-        required: false
-        type: string
 
 jobs:
   bundle:
@@ -50,7 +25,6 @@ jobs:
     outputs:
         spec-artifact-id: ${{ steps.upload-spec.outputs.artifact-id }}
         stats-artifact-id: ${{ steps.upload-stats.outputs.artifact-id }}
-        collection-artifact-id: ${{ steps.upload-collection.outputs.artifact-id }}
     permissions:
       contents: write
     steps:
@@ -99,25 +73,3 @@ jobs:
             name: ${{inputs.stats-filename}}
             path: ${{inputs.build-dir}}/${{inputs.stats-filename}}
             if-no-files-found: error
-
-      - name: Build postman collection
-        run: >-
-          openapi2postmanv2 -c postman_to_openapi.json
-          -s ${{inputs.build-dir}}/${{inputs.bundled-spec-filename}} -o ${{ inputs.collection-file }}
-
-      - name: Upload collection
-        id: upload-collection
-        uses: actions/upload-artifact@v4
-        with:
-            name: ${{inputs.collection-name}}
-            path: ${{inputs.collection-file}}
-            if-no-files-found: error
-
-      - name: Commit collection
-        if: inputs.commit
-        run: |
-          git config user.name '${{ inputs.commit-user }}'
-          git config user.email '${{ inputs.commit-email }}'
-          git add ${{ inputs.collection-file }}
-          git commit -m "automated collection build"
-          git push
