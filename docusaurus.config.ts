@@ -32,7 +32,20 @@ const config: Config = {
 
   plugins: [
     [
-      "@x-delfino/docusaurus-scalar", {}
+      "@x-delfino/docusaurus-scalar", {
+        nav: {
+          categoryFromPath: false
+        },
+        route: {
+          route: '/'
+        },
+        paths: [
+          {
+            path: "./specifications",
+            include: ["**/openapi.{json,yml,yaml}"],
+          }
+        ]
+      }
     ]
   ],
 
