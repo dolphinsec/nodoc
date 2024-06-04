@@ -70,6 +70,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           name: ${{ inputs.spec-artifact-id }}
+          run-id: ${{ inputs.build-run-id }}
 
       - name: Download stats
         id: download-stats
