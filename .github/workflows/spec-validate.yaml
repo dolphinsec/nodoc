@@ -19,7 +19,7 @@ on:
             default: generated_collection.json
             type: string
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

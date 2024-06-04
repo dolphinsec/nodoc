@@ -6,15 +6,15 @@ on:
       spec-artifact-id:
         description: The artifact ID of the bundled API specification
         required: true
-        type: number
+        type: string
       stats-artifact-id:
         description: The artifact ID of the API stats file
         required: true
-        type: number
+        type: string
       build-run-id:
         description: The ID of the build workflow run
         required: true
-        type: number
+        type: string
       postman-collection-path:
         description: The filepath to the Postman collection defintion
         required: false
@@ -36,6 +36,10 @@ on:
         description: The ID of the Postman API
         required: true
         type: string
+    secrets:
+      postman_api_key:
+        description: The API key for publishing to Postman
+        required: true
 
 permissions: {}
 
@@ -46,6 +50,11 @@ jobs:
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Sign in to Postman
+        run: |
+          postman login --with-api-key $POSTMAN_API_KEY
+        env:
+          POSTMAN_API_KEY: ${{ secrets.postman_api_key }}
       - name: Publish to Postman
         run: |
           postman api publish ${{ inputs.postman-api-id }} --name ${{ inputs.postman-api-version }} --collections ${{ inputs.postman-collection-path }} --api-definition ${{ inputs.api-root-path }}

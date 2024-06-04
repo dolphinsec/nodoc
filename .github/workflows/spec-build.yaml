@@ -29,7 +29,6 @@ on:
             description: The ID of the GitHub build action run
             value: ${{ github.run_id }}
 
-
 jobs:
   bundle:
     runs-on: ubuntu-latest
