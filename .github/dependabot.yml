@@ -23,3 +23,5 @@ updates:
       interval: "weekly"
     reviewers:
       - "x-delfino"
+    registries:
+      - gh-npm
