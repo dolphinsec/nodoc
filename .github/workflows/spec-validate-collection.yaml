@@ -50,7 +50,7 @@ jobs:
       - name: Build postman collection
         run: >-
           openapi2postmanv2 -c postman_to_openapi.json
-          -s ${{github.workspace}}/${{inputs.spec-path}} -o ${{github.workspace}}/${{inputs.temp-collection-filename}}
+          -s ${{steps.download-spec.outputs.download-path}}/${{inputs.spec-artifact-name}} -o ${{github.workspace}}/${{inputs.temp-collection-filename}}
 
       - name: Patch postman collection
         if: ${{ inputs.postman-collection-patch-path }}
