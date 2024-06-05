@@ -15,7 +15,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    reviewers:
+      - "x-delfino"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
+    reviewers:
+      - "x-delfino"
