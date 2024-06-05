@@ -19,7 +19,7 @@ nodoc was designed to be fairly agnostic in how you consume the specification. T
 - [Bruno](https://www.usebruno.com/)
 - [Redocly](https://redocly.com/)
 
-Currently, nodoc utilises OpenAPI 3.0.1 for specifications (see note in [roadmap](#roadmap)). These are typically done following a multi-file approach using [`$ref`](https://swagger.io/docs/specification/using-ref/) links. Bundled single-file definitions should be available within each of the individual API repository releases as not all tools support this feature of the specification.
+Currently, nodoc utilises OpenAPI 3.0.1 for specifications (see note in [roadmap](#roadmap)). These are typically done following a multi-file approach using [`$ref`](https://swagger.io/docs/specification/using-ref/) links. Bundled single-file definitions should be available within each of the individual API repository releases for convenience and compatibility purposes.
 
 To make things easier, we've published the OpenAPI definitions in a couple of different ways as detailed below.
 
