@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: repo.json
-          path: ${{inputs.postman-collection-path}})
+          path: ${{inputs.postman-collection-path}}
           if-no-files-found: error
 
       - name: Upload generated collections file
