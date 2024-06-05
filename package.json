@@ -26,7 +26,7 @@
     "@x-delfino/docusaurus-scalar": "0.1.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.3.2",
+    "@docusaurus/module-type-aliases": "3.4.0",
     "@docusaurus/tsconfig": "3.3.2",
     "@docusaurus/types": "3.3.2",
     "@iconify-icon/react": "^2.1.0",
