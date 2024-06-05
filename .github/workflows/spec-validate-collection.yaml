@@ -54,11 +54,28 @@ jobs:
 
       - name: Patch postman collection
         if: ${{ inputs.postman-collection-patch-path }}
-        run: >-
-          jq -n 'reduce inputs as $i ({}; .* $i)'  ${{github.workspace}}/${{inputs.temp-collection-filename}} ${{ inputs.postman-collection-patch-path }}  > ${{github.workspace}}/${{inputs.temp-collection-filename}}
+        run: |
+          jq -n 'reduce inputs as $i ({}; .* $i)'  ${{github.workspace}}/${{inputs.temp-collection-filename}} ${{ inputs.postman-collection-patch-path }}  > ${{github.workspace}}/${{inputs.temp-collection-filename}}_tmp
+          mv ${{github.workspace}}/${{inputs.temp-collection-filename}}_tmp ${{github.workspace}}/${{inputs.temp-collection-filename}}
+
+      - name: Upload repo collections file
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo.json
+          path: ${{inputs.postman-collection-path}})
+          if-no-files-found: error
+
+      - name: Upload generated collections file
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated.json
+          path: ${{github.workspace}}/${{inputs.temp-collection-filename}}
+          if-no-files-found: error
 
       - name: Compare collection files
         run: >-
           diff
           <(jq --sort-keys . ${{github.workspace}}/${{inputs.temp-collection-filename}})
           <(jq --sort-keys . ${{inputs.postman-collection-path}})
+
+
