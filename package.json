@@ -23,7 +23,7 @@
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@x-delfino/docusaurus-scalar": "^0.1.2"
+    "@x-delfino/docusaurus-scalar": "x-delfino/docusaurus-scalar/packages/docusaurus-scalar#v0.1.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.3.2",

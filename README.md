@@ -38,6 +38,7 @@ These are project wide roadmap items:
 - [ ] Support [OpenAPI Links](https://swagger.io/docs/specification/links/)
 - [ ] Migrate to OpenAPI 3.1 ([blocker](https://community.postman.com/t/unable-to-validate-this-definition-when-choosing-3-1-0/56871/2))
 - [ ] Improve Postman collection generation to avoid ID regeneration
+- [ ] Package or upstream [@x-delfino/docusaurus-scalar](https://github.com/x-delfino/docusaurus-scalar) to improve build times.
 
 ## Contribution
 
