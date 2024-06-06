@@ -4,8 +4,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 import type { ScalarConfig } from "@x-delfino/docusaurus-scalar";
 
 const config: Config = {
-  title: "NoDoc",
-  tagline: "Documenting the undocumented",
+  title: "nodoc",
+  tagline: "documenting the undocumented",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -65,14 +65,14 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "NoDoc",
+      title: "nodoc",
       logo: {
-        alt: "NoDoc site logo",
+        alt: "nodoc site logo",
         src: "img/logo.svg",
       },
       items: [
         {
-          href: "https://github.com/facebook/docusaurus",
+          href: "https://github.com/dolphinsec/nodoc",
           label: "GitHub",
           position: "right",
         },
@@ -85,17 +85,7 @@ const config: Config = {
     },
     footer: {
       style: "dark",
-      links: [
-        {
-          items: [
-            {
-              label: "GitHub",
-              href: "https://github.com/dolphinsec/nodoc",
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} Dolphin Labs Limited.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Dolphin Labs Ltd.`,
     },
     prism: {
       theme: prismThemes.github,

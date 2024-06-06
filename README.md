@@ -43,7 +43,7 @@ These are project wide roadmap items:
 
 ## Contribution
 
-We welcome any contributions to this project. Please feel free to fork the project and raise any pull requests to be merged back in.
+We welcome any contributions to this project. Please checkout the contributing guide [here](/CONTRIBUTING.md).
 
 ## Anything else?
 
