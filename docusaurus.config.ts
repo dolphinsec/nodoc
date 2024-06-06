@@ -63,7 +63,7 @@ const config: Config = {
   ],
   themeConfig: {
     colorMode: {
-      respectPreferesColorScheme: true
+      respectPrefersColorScheme: true
     },
     navbar: {
       title: "nodoc",
