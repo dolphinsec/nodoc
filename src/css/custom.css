@@ -40,7 +40,7 @@
   }
 }
 
-.show-api-client-button {
+.show-api-client-button, .request-card-footer {
   display: none !important;
 }
 
@@ -57,7 +57,7 @@
   width: 2.5rem;
   height: 2.5rem;
   padding: 6px;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
   margin-left: 0.5rem;
   border-radius: 50%;
   transition: background var(--ifm-transition-fast);
