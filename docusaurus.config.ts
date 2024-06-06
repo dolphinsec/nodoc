@@ -73,15 +73,17 @@ const config: Config = {
       },
       items: [
         {
-          href: "https://github.com/dolphinsec/nodoc",
-          label: "GitHub",
+          href: "https://www.postman.com/dolphinlabs",
+          className: "navbar--postman-link",
+          "aria-label": "Postman collection",
           position: "right",
         },
         {
-          href: "https://www.postman.com/dolphinlabs",
-          label: "Postman",
+          href: "https://github.com/dolphinsec/nodoc",
+          className: "navbar--gh-link",
+          "aria-label": "GitHub repository",
           position: "right",
-        },
+        }
       ],
     },
     footer: {

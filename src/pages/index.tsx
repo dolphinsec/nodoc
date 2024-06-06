@@ -1,9 +1,7 @@
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import { Icon } from '@iconify-icon/react';
 
 import styles from './index.module.css';
 
@@ -16,18 +14,6 @@ function HomepageHeader() {
           {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="https://github.com/dolphinsec/nodoc">
-            GitHub <Icon inline icon="logos:github-icon"/>
-          </Link>
-          <Link
-            className="button button--secondary button--lg"
-            to="https://www.postman.com/dolphinlabs">
-            Postman <Icon inline icon="logos:postman-icon" />
-          </Link>
-        </div>
       </div>
     </header>
   );
