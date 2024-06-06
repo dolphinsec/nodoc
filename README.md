@@ -2,7 +2,7 @@
 
 ![GitHub License](https://img.shields.io/github/license/dolphinsec/nodoc)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e8bdbd46-256f-4d97-a34c-775929adfbac/deploy-status)](https://app.netlify.com/sites/nodoc/deploys)
-[![Postman Workspace](https://img.shields.io/badge/dolphinlabs-ef5b25?logo=postman&logoColor=white)](https://www.postman.com/dolphinlabs/workspace/nodoc)
+[![Postman Workspace](https://img.shields.io/badge/postman-dolphinlabs-ef5b25?logo=postman&logoColor=white)](https://www.postman.com/dolphinlabs/workspace/nodoc)
 
 documenting the undocumented
 
