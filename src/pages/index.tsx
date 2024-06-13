@@ -18,14 +18,22 @@ function HomepageHeader() {
           <a href="https://www.postman.com/dolphinlabs">
             <div className="home--block">
               <i className="icon--postman home--block-icon"></i>
-              <h4> Published Postman collections </h4>
+              <p>
+                <h4> Published Postman collections </h4>
+                Use auto-generated Postman collections for interacting with
+                nodoc APIs.
+              </p>
             </div>
           </a>
           <a href="https://github.com/dolphinsec/nodoc">
-          <div className="home--block">
-            <i className="icon--github home--block-icon"></i>
-              <h4>Open-source specifications</h4>
-          </div>
+            <div className="home--block">
+              <i className="icon--github home--block-icon"></i>
+              <p>
+                <h4>Open-source specifications</h4>
+                Use published API specs to develop tooling for interacting with
+                the APIs.
+              </p>
+            </div>
           </a>
         </div>
       </div>
