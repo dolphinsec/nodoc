@@ -5,8 +5,8 @@ import type { ScalarConfig } from "@x-delfino/docusaurus-scalar";
 
 const config: Config = {
   title: "nodoc",
-  tagline: "documenting the undocumented",
-  favicon: "img/favicon.ico",
+  tagline: "documenting undocumented interfaces",
+  favicon: "img/favicon.svg",
 
   // Set the production url of your site here
   url: "https://nodoc.cloud",
@@ -33,6 +33,7 @@ const config: Config = {
   plugins: [
     [
       "@x-delfino/docusaurus-scalar", {
+        withDefaultFonts: false,
         nav: {
           categoryFromPath: false
         },
@@ -67,27 +68,27 @@ const config: Config = {
     },
     navbar: {
       title: "nodoc",
-      logo: {
-        alt: "nodoc site logo",
-        src: "img/logo.svg",
-      },
       items: [
         {
           href: "https://www.postman.com/dolphinlabs",
-          className: "navbar--postman-link",
+          className: "icon--postman navbar--icon-link",
           "aria-label": "Postman collection",
           position: "right",
         },
         {
           href: "https://github.com/dolphinsec/nodoc",
-          className: "navbar--gh-link",
+          className: "icon--github navbar--icon-link",
           "aria-label": "GitHub repository",
           position: "right",
         }
       ],
     },
     footer: {
-      style: "dark",
+      logo: {
+        alt: "dolphin labs logo",
+        src: "./img/dolphin_labs_black.svg",
+        srcDark: "./img/dolphin_labs_green.svg",
+      },
       copyright: `Copyright © ${new Date().getFullYear()} Dolphin Labs Ltd.`,
     },
     prism: {
