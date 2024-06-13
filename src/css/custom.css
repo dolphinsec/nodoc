@@ -119,18 +119,23 @@ html[data-theme="dark"] .icon--github:before {
   display: flex;
   align-content: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .home--block {
   width: 16rem;
+  height: 100%;
   display: flex;
   border: solid var(--ifm-font-color-base);
   border-width: 1px;
   border-radius: 1rem;
-  padding: 0.1rem;
+  padding: 0.5rem;
   color: var(--ifm-font-color-base);
   flex-direction: column
+}
+
+.home--container a:hover {
+  text-decoration: none;
 }
 
 @media (max-width: 996px) {
