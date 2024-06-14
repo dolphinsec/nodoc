@@ -4,7 +4,7 @@
 [![Postman Workspace](https://img.shields.io/badge/postman-dolphinlabs-ef5b25?logo=postman&logoColor=white)](https://www.postman.com/dolphinlabs/workspace/nodoc)
 ![GitHub License](https://img.shields.io/github/license/dolphinsec/nodoc)
 
-_documenting the undocumented_
+_documenting undocumented interfaces_
 
 nodoc is a project created by Dolphin Labs to enable deeper understanding and utilisation of undocumented APIs in cloud services. The project consists of OpenAPI specifications for APIs that were previously undocumented (at least publicly). By documenting these APIs, we hope to empower security teams to greater understand the attack surface of these services.
 
