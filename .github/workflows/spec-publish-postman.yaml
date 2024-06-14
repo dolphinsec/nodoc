@@ -1,0 +1,50 @@
+---
+    on:
+      workflow_call:
+        inputs:
+          postman-collection-path:
+            description: The filepath to the Postman collection defintion
+            required: false
+            default: postman/collections/collection.json
+            type: string
+          postman-api-version:
+            description: The version to publish for the Postman API
+            required: true
+            type: string
+          api-root-path:
+            description: The root path of the API specification
+            required: true
+            type: string
+          postman-api-id:
+            description: The ID of the Postman API
+            required: true
+            type: string
+        secrets:
+          postman-api-key:
+            description: The API key for publishing to Postman
+            required: true
+    
+    permissions: {}
+    
+    jobs:
+      release-to-postman:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+    
+          - name: Install Postman CLI
+            run: |
+              curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+    
+          - name: Sign in to Postman
+            run: |
+              postman login --with-api-key $POSTMAN_API_KEY
+            env:
+              POSTMAN_API_KEY: ${{ secrets.postman-api-key }}
+    
+          - name: Publish to Postman
+            run: |
+              postman api publish ${{ inputs.postman-api-id }} --name ${{ inputs.postman-api-version }} --collections ${{ inputs.postman-collection-path }} --api-definition ${{ inputs.api-root-path }}
