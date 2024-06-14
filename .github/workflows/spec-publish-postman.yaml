@@ -9,7 +9,7 @@
             type: string
           postman-api-version:
             description: The version to publish for the Postman API
-            required: true
+            required: false
             type: string
           api-root-path:
             description: The root path of the API specification
