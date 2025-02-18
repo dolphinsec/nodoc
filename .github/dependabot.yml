@@ -21,6 +21,10 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      docusaurus:
+        patterns:
+          - "@docusaurus/*"
     reviewers:
       - "x-delfino"
     registries:
